@@ -9,21 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Student {
 
-    private Integer id;
-    private String sno;
-    private String name;
-    private char gender = '男';//default
+    private Integer sno;
+    private String username;
     private String password;
+    private char gender;
     private String email;
     private String telephone;
     private String address;
-    private String introducation;
-    private String portrait_path;//存储头像的项目路径
-    private String clazz_name;//班级名称
-
-    public Student(String name, String clazz_name) {
-        this.name = name;
-        this.clazz_name = clazz_name;
-    }
+    private String introduce;
+    private String portraitPath;//存储头像的项目路径
+    private String clazzId;//班级名称
 
 }
