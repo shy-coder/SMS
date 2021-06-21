@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>login</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <style>
+        body{
+            background-color: #009688;
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .loginForm{
+            width: 420px;
+            height: 320px;
+            background-color: white;
+            padding: 30px 20px;
+            margin-top: 50%;
+            border-radius: 5px;
+            box-shadow: 0 0 5px black;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md4 layui-col-md-offset4">
+            <div class="loginForm">
+                <h2 align="center">登录</h2>
+
+                <span style="color:red" th:text="${msg}"></span>
+
+                <form class="layui-form" action="/user/login" method="post">
+                    <div class="layui-form-item">
+                        <label>用户名:</label>
+                        <div class="layui-form-block">
+                            <input type="text" name="username" required lay-verify="required"
+                                   placeholder="请输入用户名" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label>密码:</label>
+                        <div class="layui-form-block">
+                            <input type="password" name="password" required lay-verify="required"
+                                   placeholder="请输入密码" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">role:</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="role" value="0" title="管理员" checked="">
+                            <input type="radio" name="role" value="1" title="教师">
+                            <input type="radio" name="role" value="2" title="学生">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-form-block" style="position: absolute;right: 0px">
+                            <button class="layui-btn" lay-submit lay-filter="loginForm">登录</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script>
+    // layui.use(['layer', 'form'], function () {
+    //     var layer = layui.layer;
+    //     var form = layui.form;
+    //
+    //     form.on('submit(loginForm)', function (data) {
+    //         // submit login data
+    //         $.ajax({
+    //            url:'/user/login',
+    //            type:'post',
+    //            data:{'username':data.field.username,'password':data.field.password},
+    //            'success':function (data) {
+    //                 alert("登录成功");
+    //            }
+    //         });
+    //         // $.post("/user/login", {username: data.field.username, password: data.field.password}, res=>{
+    //         //     switch (res.code) {
+    //         //         case 200:
+    //         //             layer.alert(res.msg, {icon:1});
+    //         //             break;
+    //         //         case 501:
+    //         //             layer.alert(res.msg, {icon:2});
+    //         //             break;
+    //         //     }
+    //         // });
+    //         return false;
+    //     })
+    // })
+</script>
+</body>
+</html>

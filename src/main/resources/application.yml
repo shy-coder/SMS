@@ -7,19 +7,17 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
 
 #静态资源配置
 resources:
   static-locations: classpath:static/
-
-#thymeleaf模板引擎配置
-thymeleaf:
-  prefix: classpath:/templates/
-  suffix: .html
-  mode: HTML5
-  encoding: UTF-8
-  content-type: text/html
-  cache: false
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
