@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Teacher {
 
-    private Integer tno;
+    private Integer id;
+    private String tno;
     private String username;
     private String password;
     private char gender;
