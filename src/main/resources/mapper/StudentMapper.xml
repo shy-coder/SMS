@@ -7,4 +7,9 @@
         select * from tb_student where sno=#{sno} and password=#{password}
     </select>
 
+    <!-- 查询所有学生 -->
+    <select id="selectAll" resultType="com.niit.sms.bean.Student">
+        select * from tb_student
+    </select>
+
 </mapper>
