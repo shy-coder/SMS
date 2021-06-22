@@ -2,7 +2,6 @@ package com.niit.sms.controller;
 
 import com.niit.sms.bean.Teacher;
 import com.niit.sms.service.TeacherService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +41,11 @@ public class TeacherController {
             Integer status = teacherService.deleteTeacher(teacher);
             result.put("status",status);
             return result;
+    }
+
+    @RequestMapping("/teaInfo")
+    public String teaInfo(){
+        return "/teacher/teaInfo";
     }
 
 }

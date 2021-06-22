@@ -17,7 +17,7 @@ spring:
 
 #静态资源配置
 resources:
-  static-locations: classpath:static/
+  static-locations: [ "/templates/","/resources/","/static/","/public/" ]
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
