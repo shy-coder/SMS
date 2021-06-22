@@ -7,6 +7,8 @@ import com.niit.sms.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentrService {
 
@@ -18,6 +20,12 @@ public class StudentServiceImpl implements StudentrService {
         String mdPassword = MD5Util.MD5Lower(password);
         return studentMapper.login(tno, mdPassword);
 
+    }
+
+    @Override
+    public List<Student> selectAll() {
+        List<Student> students = studentMapper.selectAll();
+        return students;
     }
 
 }

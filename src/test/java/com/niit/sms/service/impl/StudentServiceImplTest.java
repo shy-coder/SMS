@@ -4,11 +4,11 @@ import com.niit.sms.bean.Student;
 import com.niit.sms.service.StudentrService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class StudentServiceImplTest {
 
     @Autowired
@@ -17,6 +17,6 @@ class StudentServiceImplTest {
     @Test
     void selectAll() {
         List<Student> students = studentService.selectAll();
-        System.out.println(students.toString());
+        System.out.println(students);
     }
 }
