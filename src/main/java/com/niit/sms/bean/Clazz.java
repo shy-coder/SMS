@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Clazz {
     //班级信息
     private Integer id;
-    private String className;
+    private String clazz_name;
     private String number;
     private String introduce;
     //班主任信息
@@ -19,7 +19,7 @@ public class Clazz {
     private String gradeId;
 
     public Clazz(String className, String gradeId) {
-        this.className = className;
+        this.clazz_name = className;
         this.gradeId = gradeId;
     }
 

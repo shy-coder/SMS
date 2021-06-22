@@ -11,32 +11,101 @@
 </head>
 <body>
 
-<table class="layui-hide" id="test" lay-filter="test"></table>
+<table class="layui-hide" id="stuData" lay-filter="stuData"></table>
 
-<script type="text/html" id="toolbarDemo">
+<script type="text/html" id="toolBar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getAddData"><i class="layui-icon">&#xe654</i>添加</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
     </div>
 </script>
 
-<script type="text/html" id="barDemo">
+<script type="text/html" id="actBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
+<form class="layui-form" action="" method="post" id="teaInfo" lay-filter="teaInfo" style="display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-block">
+            <input type="text" name="id" lay-verify="title" disabled class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">工号</label>
+        <div class="layui-input-block">
+            <input type="text" name="tno" lay-verify="title" disabled class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="teacher_name" lay-verify="title" autoComplete="off" placeholder="请输入姓名"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" lay-verify="title" autoComplete="off" placeholder="请输入密码"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="gender" value="男" title="男" checked="">
+            <input type="radio" name="gender" value="女" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">email</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" lay-verify="title" autoComplete="off" placeholder="请输入email"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="telephone" lay-verify="title" autoComplete="off" placeholder="请输入电话"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="address" lay-verify="title" autoComplete="off" placeholder="请输入地址"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <input type="hidden" name="images" class="image">
+            <label class="layui-form-label ">照片: </label>
+            <div class="layui-upload" >
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="image" style="width: 150px;height: 150px; border: solid 1px" alt="头像">
+                    <p id="imgText" style="margin-left: 13.5vh ;width: 150px"></p>
+                    <button type="button" class="layui-btn" id="imgUp" style="margin-left: 13.5vh;width: 150px">上传图片</button>
+                </div>
+            </div>
+    </div>
+</form>
 <script src="/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
 <script>
-    layui.use('table', function () {
+    layui.use(['table', 'jquery', 'form','upload'], function () {
+        var $ = layui.jquery;
         var table = layui.table;
+        var form = layui.form;
+        var upload = layui.upload;
 
         table.render({
-            elem: '#test'
+            elem: '#stuData'
             , url: '/teacher/teacherListData'
-            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , toolbar: '#toolBar' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
                 , layEvent: 'LAYTABLE_TIPS'
@@ -46,27 +115,30 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
-                    , {field: 'id', title: 'ID',fixed: 'left', unresize: true, sort: true}
+                    , {field: 'id', title: 'ID', fixed: 'left', unresize: true, sort: true}
+                    , {field: 'tno', title: '工号', edit: 'text'}
                     , {field: 'teacher_name', title: '姓名', edit: 'text'}
                     , {
                     field: 'eamil', title: 'email', edit: 'text', templet: function (res) {
                         return '<em>' + res.email + '</em>'
                     }
                 }
-                    , {field: 'gender', title: '性别',  edit: 'text'}
-                    , {field: 'telephone', title: '电话',edit:'text'}
-                    , {field: 'address', title: '地址',edit:'text'}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                    , {field: 'gender', title: '性别', edit: 'text'}
+                    , {field: 'telephone', title: '电话', edit: 'text'}
+                    , {field: 'address', title: '地址', edit: 'text'}
+                    , {field: 'portrait_path', title: '头像地址', edit: 'text'}
+                    , {fixed: 'right', title: '操作', toolbar: '#actBar', width: 150}
                 ]
             ]
             , page: true
         });
 
+
         //头工具栏事件
-        table.on('toolbar(test)', function (obj) {
+        table.on('toolbar(stuData)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'getCheckData':
+                case 'getAddData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
                     break;
@@ -87,26 +159,90 @@
         });
 
         //监听行工具事件
-        table.on('tool(test)', function (obj) {
+        table.on('tool(stuData)', function (obj) {
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    obj.del();
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            'id': data.id
+                        },
+                        url: '/teacher/delete',
+                        error: function (XMLHttpRequest) {
+                            alert("删除失败了!");
+                            alert(XMLHttpRequest.status);
+                        },
+                        success: function (resData) {
+                            if (resData.status === 1) {
+                                obj.del();
+                                alert("删除成功");
+                            } else {
+                                alert("删除失败了！");
+                            }
+
+                        }
+                    })
                     layer.close(index);
                 });
             } else if (obj.event === 'edit') {
-                layer.prompt({
-                    formType: 2
-                    , value: data.email
-                }, function (value, index) {
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+                $('#image').attr('src',""+data.portrait_path)
+                form.val('teaInfo', {
+                    'id': data.id,
+                    'tno': data.tno,
+                    'teacher_name': data.teacher_name,
+                    'gender': data.gender,
+                    'email': data.email,
+                    'telephone': data.telephone,
+                    'address': data.address,
+                })
+                layer.open({
+                    type: 1,
+                    area: ['50%', '50%'],
+                    btn: ['确认', '取消'],
+                    content: $('#teaInfo')
+                })
+            }
+        });
+
+    //上传头像
+        var uploadInst = upload.render({
+            elem: '#imgUp'
+            ,url: '/upload/'
+            ,accept:'images'
+            ,size:50000
+            ,before: function(obj){
+
+                obj.preview(function(index, file, result){
+
+                    $('#image').attr('src', result);
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                var upText = $('#imgText');
+                upText.html('<span style="color: #4cae4c;">上传成功</span>');
+
+                var fileupload = $(".image");
+                fileupload.attr("src",res.data.src);
+                console.log(fileupload.attr("src"));
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#imgText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
                 });
             }
         });
+
+
     });
 </script>
 </body>
