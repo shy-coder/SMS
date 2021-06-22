@@ -8,6 +8,8 @@ import com.niit.sms.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
@@ -19,6 +21,36 @@ public class TeacherServiceImpl implements TeacherService {
         String mdPassword = MD5Util.MD5Lower(password);
         return teacherMapper.login(tno, mdPassword);
 
+    }
+
+    @Override
+    public List<Teacher> findAll() {
+        return teacherMapper.findAll();
+    }
+
+    @Override
+    public Teacher findByTno(Teacher teacher) {
+        return teacherMapper.findByTno(teacher);
+    }
+
+    @Override
+    public int insertTeacher(Teacher teacher) {
+        return teacherMapper.insertTeacher(teacher);
+    }
+
+    @Override
+    public int updateTeacher(Teacher teacher) {
+        return teacherMapper.updateTeacher(teacher);
+    }
+
+    @Override
+    public int updatePassword(Teacher teacher) {
+        return teacherMapper.updatePassword(teacher);
+    }
+
+    @Override
+    public int deleteTeacher(Teacher teacher) {
+        return teacherMapper.deleteTeacher(teacher);
     }
 
 }

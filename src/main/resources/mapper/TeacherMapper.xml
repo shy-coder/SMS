@@ -7,4 +7,59 @@
         select * from tb_teacher where tno=#{tno} and password=#{password}
     </select>
 
+    <!--查询所有教师-->
+    <select id="findAll" resultType="teacher" parameterType="teacher">
+        SELECT * From tb_teacher
+    </select>
+
+    <!-- 根据工号查询指定教师信息 -->
+    <select id="findByTno" resultType="teacher" parameterType="com.niit.sms.bean.Teacher">
+        SELECT id,
+               tno,
+               teacher_name,
+               password,
+               gender,
+               email,
+               telephone,
+               address,
+               portrait_path
+        FROM tb_teacher
+        WHERE tno = #{tno}
+    </select>
+
+    <!-- 根据id修改指定教师信息 -->
+    <update id="updateTeacher" parameterType="teacher">
+        UPDATE tb_teacher
+        <set>
+            <if test="teacher_name!=null and teacher_name!=''">teacher_name=#{teacher_name},</if>
+            <if test="gender!=null and gender!=''">gender=#{gender},</if>
+            <if test="password!=null and password!=''">password=#{password},</if>
+            <if test="email!=null and email!=''">email=#{email},</if>
+            <if test="telephone!=null and telephone!=''">telephone=#{telephone},</if>
+            <if test="address!=null and address!=''">address=#{address},</if>
+            <if test="portrait_path!=null and portrait_path!=''">portrait_path=#{portrait_path},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--根据id修改教师密码-->
+    <update id="updatePassword" parameterType="teacher">
+        UPDATE tb_teacher
+        <set>
+            password = #{password}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--添加新教师-->
+    <insert id="insertTeacher" parameterType="teacher">
+        INSERT INTO  tb_teacher(tno,teacher_name,password,gender,email,telephone,address, portrait_path)
+        VALUES (#{tno}, #{teacher_name},#{password},#{gender}, #{email}, #{telephone}, #{address}, #{portrait_path} )
+    </insert>
+
+    <!--根据id删除教师-->
+    <delete id="deleteTeacher" parameterType="teacher">
+        DELETE FROM tb_teacher WHERE id = #{id}
+    </delete>
+
 </mapper>
