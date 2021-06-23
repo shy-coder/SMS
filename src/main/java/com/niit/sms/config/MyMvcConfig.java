@@ -16,7 +16,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /*System.out.println("配置文件已经生效");*/
-        registry.addResourceHandler("/images/**").addResourceLocations("file:D:\\SMS\\src\\main\\resources\\static\\images\\");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:C:\\Program\\workspace\\Java\\sms\\src\\main\\resources\\static\\images\\");
     }
 
 

@@ -1,10 +1,12 @@
-layui.use(['table','upload', 'element', 'layer'], function(){
+layui.use(['form','table','upload', 'element', 'layer'], function(){
     const $ = layui.jquery
         , upload = layui.upload
         , element = layui.element
-        , layer = layui.layer;
+        , layer = layui.layer
+        , form = layui.form;
     const table = layui.table;
     const url = $("#ctx").val();
+    var file;
     console.log(url.toString());
 
     table.render({
@@ -32,8 +34,8 @@ layui.use(['table','upload', 'element', 'layer'], function(){
                     ,{field:'telephone', title:'电话', width:130, edit: 'text'}
                     ,{field:'address', title:'城市', width:70}
                     ,{field:'introduce', title: '介绍',width: 130}
-                    ,{field:'portrait_path', title:'头像',width: 120}
-                    ,{field:'class_id', title:'班级', width:80, sort: true}
+                    ,{field:'portrait_path', title:'头像',templet:'<div><img  src="{{ d.portrait_path }}"></div>',width: 120,}
+                    ,{field:'clazz_id', title:'班级', width:80}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
                 ]
             ]
@@ -52,33 +54,31 @@ layui.use(['table','upload', 'element', 'layer'], function(){
                     area:['50%','50%'],
                     btn: ['确定', '取消'],
                     content: $("#window"),
-                    yes:function(index,layero){
+                    yes:function(index){
+                        var stuData = form.val('example')
                         $.getJSON('/stu/add',{
                             sno: $('#sno').val(),
                             username: $('#username').val(),
                             password: $('#password').val(),
-                            gender: $('#gender').val(),
+                            gender: $('input[name="sex"]:checked').val(),
                             email: $('#email').val(),
                             telephone: $('#telephone').val(),
                             address: $('#address').val(),
                             introduce: $('#introduce').val(),
-                            portrait_path: $('#portrait_path').val(),
-                            class_id: $('#class_id').val()
+                            portrait_path: file,
+                            clazz_id:stuData.clazz_id
                         },function(data){
                             //根据后台返回的参数，来进行判断
-                            layer.alert("添加成功");
-                            if(data>0){
-                                layer.alert('增加成功',{icon:1,title:'提示'},function(i){
-                                    layer.close(i);
-                                    layer.close(index);//关闭弹出层
-                                    $("#book")[0].reset()//重置form
-                                })
-                                table.reload('demo',{//重载表格
-                                    page:{
-                                        curr:1
-                                    }
-                                })
-                            }
+                            layer.alert('增加成功',{icon:1,title:'提示'},function(i){
+                                //layer.close(i);
+                                layer.closeAll();//关闭弹出层
+                                $("#book")[0].reset()//重置form
+                            })
+                            table.reload('test',{//重载表格
+                                page:{
+                                    curr:1
+                                }
+                            })
                         });
                     }
                 });
@@ -98,17 +98,14 @@ layui.use(['table','upload', 'element', 'layer'], function(){
         };
     });
 
-    let myFile;
     //上传头像
     const uploadInst = upload.render({
         elem: '#test1'
-        , url: '/head/upload' //改成您自己的上传接口
+        , url: '/upload' //改成您自己的上传接口
         , before: function (obj) {
             //预读本地文件示例，不支持ie8
             obj.preview(function (index, file, result) {
                 $('#demo1').attr('src', result); //图片链接（base64）
-                // console.log("111111"+file.toString())
-                // myFile = file.toString();
             });
             element.progress('demo', '0%'); //进度条复位
             layer.msg('上传中', {icon: 16, time: 0});
@@ -119,7 +116,8 @@ layui.use(['table','upload', 'element', 'layer'], function(){
                 return layer.msg('上传失败');
             }
             //上传成功的一些操作
-            console.log("22222"+res.data.src);
+            console.log("!!!!!!!!"+res.data.src);
+            file = res.data.src;
             $('#demoText').html(''); //置空上传失败的状态
         }
         , error: function () {

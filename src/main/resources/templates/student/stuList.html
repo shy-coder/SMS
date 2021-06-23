@@ -37,8 +37,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-                <input type="radio" name="sex" value="1" title="男">
-                <input type="radio" name="sex" value="0" title="女" checked>
+                <input type="radio" name="sex" value="男" title="男">
+                <input type="radio" name="sex" value="女" title="女" checked>
             </div>
         </div>
         <div class="layui-form-item">
@@ -50,7 +50,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">电话</label>
             <div class="layui-input-block">
-                <input type="text" id="phone" name="phone" lay-verify="phone" placeholder="请输入电话" class="layui-input">
+                <input type="text" id="telephone" name="telephone" lay-verify="phone" placeholder="请输入电话" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -88,14 +88,27 @@
             <div class="layui-input-block">
                 <select name="clazz_id" lay-verify="">
                     <option value="">请选择一个城市</option>
-                    <option value="010">北京</option>
-                    <option value="021">上海</option>
-                    <option value="0571">杭州</option>
+                    <option value="01">北京</option>
+                    <option value="02">上海</option>
+                    <option value="05">杭州</option>
                 </select>
             </div>
         </div>
     </form>
 </div>
+
+
+<style type="text/css">
+    .layui-table-cell{
+        text-align:center;
+        height: auto;
+        white-space: normal;
+    }
+    .layui-table img{
+        max-width:300px
+    }
+</style>
+
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">

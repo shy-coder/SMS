@@ -12,4 +12,12 @@
         select * from tb_student
     </select>
 
+    <!--新增一名学生-->
+    <insert id="addStudent" parameterType="com.niit.sms.bean.Student">
+        insert into tb_student
+        (sno,username,password,gender,email,telephone,address,introduce,portrait_path,clazz_id)
+        values
+        (#{sno},#{username},#{password},#{gender},#{email},#{telephone},#{address},#{introduce},#{portrait_path},#{clazz_id})
+    </insert>
+
 </mapper>

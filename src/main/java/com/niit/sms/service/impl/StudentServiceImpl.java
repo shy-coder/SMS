@@ -28,4 +28,11 @@ public class StudentServiceImpl implements StudentrService {
         return students;
     }
 
+    @Override
+    public int addStudent(Student student) {
+        String lower = MD5Util.MD5Lower(student.getPassword());
+        student.setPassword(lower);
+        return studentMapper.addStudent(student);
+    }
+
 }

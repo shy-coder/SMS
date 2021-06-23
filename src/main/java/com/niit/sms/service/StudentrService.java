@@ -10,4 +10,6 @@ public interface StudentrService {
 
     List<Student> selectAll();
 
+    int addStudent(Student student);
+
 }
