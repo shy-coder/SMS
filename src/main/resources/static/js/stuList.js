@@ -25,8 +25,7 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                     {type: 'checkbox', fixed: 'left'}
                     ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                     ,{field:'sno', title:'学号', width:80, edit: 'text'}
-                    ,{field:'username', title:'姓名', width:100, edit: 'text'}
-                    ,{field:'password', title:'密码', width:100, edit: 'text'}
+                    ,{field:'student_name', title:'姓名', width:100, edit: 'text'}
                     ,{field:'gender', title:'性别', width:60, edit: 'text'}
                     ,{field:'email', title:'邮箱', width:130, edit: 'text', templet: function(res){
                         return '<em>'+ res.email +'</em>'
@@ -34,7 +33,7 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                     ,{field:'telephone', title:'电话', width:130, edit: 'text'}
                     ,{field:'address', title:'城市', width:70}
                     ,{field:'introduce', title: '介绍',width: 130}
-                    ,{field:'portrait_path', title:'头像',templet:'<div><img  src="{{ d.portrait_path }}"></div>',width: 120,}
+                    ,{field:'portrait_path', title:'头像',templet:'<div><img  src="{{ d.portrait_path }}" style="width: 50px;height: 50px"></div>',width: 120,}
                     ,{field:'clazz_id', title:'班级', width:80}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
                 ]
@@ -56,30 +55,37 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                     content: $("#window"),
                     yes:function(index){
                         var stuData = form.val('example')
-                        $.getJSON('/stu/add',{
-                            sno: $('#sno').val(),
-                            username: $('#username').val(),
-                            password: $('#password').val(),
-                            gender: $('input[name="sex"]:checked').val(),
-                            email: $('#email').val(),
-                            telephone: $('#telephone').val(),
-                            address: $('#address').val(),
-                            introduce: $('#introduce').val(),
-                            portrait_path: file,
-                            clazz_id:stuData.clazz_id
-                        },function(data){
-                            //根据后台返回的参数，来进行判断
-                            layer.alert('增加成功',{icon:1,title:'提示'},function(i){
-                                //layer.close(i);
-                                layer.closeAll();//关闭弹出层
-                                $("#book")[0].reset()//重置form
-                            })
-                            table.reload('test',{//重载表格
-                                page:{
-                                    curr:1
+                        $.ajax(
+                            {
+                                type: "POST",
+                                data:{
+                                    sno: $('#sno').val(),
+                                    student_name: $('#student_name').val(),
+                                    password: $('#password').val(),
+                                    gender: $('input[name="sex"]:checked').val(),
+                                    email: $('#email').val(),
+                                    telephone: $('#telephone').val(),
+                                    address: $('#address').val(),
+                                    introduce: $('#introduce').val(),
+                                    portrait_path: file,
+                                    clazz_id:stuData.clazz_id
+                                },
+                                url:'/stu/add',
+                                success:function (data){
+                                    //根据后台返回的参数，来进行判断
+                                    layer.alert('增加成功',{icon:1,title:'提示'},function(i){
+                                        //layer.close(i);
+                                        layer.closeAll();//关闭弹出层
+                                        $("#book")[0].reset()//重置form
+                                    })
+                                    table.reload('test',{//重载表格
+                                        page:{
+                                            curr:1
+                                        }
+                                    })
                                 }
-                            })
-                        });
+                            }
+                        )
                     }
                 });
                 break;
