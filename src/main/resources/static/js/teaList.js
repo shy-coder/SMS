@@ -28,13 +28,14 @@ layui.use(['table', 'jquery', 'form', 'upload'], function () {
                 , {field: 'telephone', title: '电话', edit: 'text'}
                 , {field: 'address', title: '地址', edit: 'text'}
                 , {field: 'portrait_path', title: '头像地址', edit: 'text'}
-                , {fixed: 'right', title: '操作', toolbar: '#actBar', width: 150}
+                , {fixed: 'right', title: '操作', toolbar: '#actBar'}
             ]
         ]
         , page: true
     });
     //头工具栏事件
     table.on('toolbar(teaData)', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
         switch (obj.event) {
             case 'getAddData':
                 $('#teaInfo')[0].reset();
