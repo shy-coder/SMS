@@ -23,7 +23,7 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
             [
                 [
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                    ,{field:'id', title:'ID', width:80}
                     ,{field:'sno', title:'学号', width:80, edit: 'text'}
                     ,{field:'username', title:'姓名', width:100, edit: 'text'}
                     ,{field:'password', title:'密码', width:100, edit: 'text'}
@@ -60,7 +60,7 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                             sno: $('#sno').val(),
                             username: $('#username').val(),
                             password: $('#password').val(),
-                            gender: $('input[name="sex"]:checked').val(),
+                            gender: $('input[name="gender"]:checked').val(),
                             email: $('#email').val(),
                             telephone: $('#telephone').val(),
                             address: $('#address').val(),
@@ -139,22 +139,88 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
 
     //监听行工具事件
     table.on('tool(test)', function(obj){
-        var data = obj.data;
-        //console.log(obj)
+        const data = obj.data;
         if(obj.event === 'del'){
             layer.confirm('真的删除行么', function(index){
-                obj.del();
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        'id': data.id
+                    },
+                    url: '/stu/del',
+                    success: function (result) {
+                        if (result.data > 0) {
+                            obj.del();
+                            table.reload('test',{
+                                page:{
+                                    curr:1
+                                }
+                            })
+                            alert("删除成功");
+                        }else {
+                            alert("删除失败");
+                        }
+                    }
+                })
                 layer.close(index);
             });
         } else if(obj.event === 'edit'){
-            layer.prompt({
-                formType: 2
-                ,value: data.email
-            }, function(value, index){
-                obj.update({
-                    email: value
-                });
-                layer.close(index);
+            $('#demo1').attr('src', "" + data.portrait_path)
+            form.val('example', {
+                'sno': data.sno,
+                'username': data.username,
+                'password': data.password,
+                'gender': data.gender,
+                'email': data.email,
+                'telephone': data.telephone,
+                'address': data.address,
+                'introduce': data.introduce,
+                'clazz_id': data.clazz_id
+            })
+            layer.open({
+                type: 1,
+                title:'修改',
+                area: ['50%', '50%'],
+                btn: ['确认', '取消'],
+                content: $('#window'),
+                yes: function (index) {
+                    var stuData = form.val('example')
+                    $.ajax({
+                            type: "POST",
+                            data: {
+                                'id':data.id,
+                                'sno': stuData.sno,
+                                'username': stuData.username,
+                                'password': stuData.password,
+                                'gender': stuData.gender,
+                                'email': stuData.email,
+                                'telephone': stuData.telephone,
+                                'address': stuData.address,
+                                'introduce': stuData.introduce,
+                                'portrait_path': file,
+                                'clazz_id': stuData.clazz_id,
+                            },
+                            url: '/stu/update',
+                            error: function (XMLHttpRequest) {
+                                alert("更新失败了!");
+                                alert(XMLHttpRequest.status);
+                            },
+                            success: function (result) {
+                                if (result.data > 0) {
+                                    layer.closeAll();
+                                    table.reload('test',{
+                                        page:{
+                                            curr:1
+                                        }
+                                    })
+                                    alert("更新成功");
+                                }else {
+                                    alert("更新失败");
+                                }
+                            }
+                        }
+                    )
+                }
             });
         }
     });

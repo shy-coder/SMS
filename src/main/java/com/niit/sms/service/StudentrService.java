@@ -12,4 +12,8 @@ public interface StudentrService {
 
     int addStudent(Student student);
 
+    int delStudentById(Integer id);
+
+    int updateStudentById(Student student);
+
 }

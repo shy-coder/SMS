@@ -24,8 +24,7 @@ public class StudentServiceImpl implements StudentrService {
 
     @Override
     public List<Student> selectAll() {
-        List<Student> students = studentMapper.selectAll();
-        return students;
+        return studentMapper.selectAll();
     }
 
     @Override
@@ -33,6 +32,16 @@ public class StudentServiceImpl implements StudentrService {
         String lower = MD5Util.MD5Lower(student.getPassword());
         student.setPassword(lower);
         return studentMapper.addStudent(student);
+    }
+
+    @Override
+    public int delStudentById(Integer id) {
+        return studentMapper.delStudentById(id);
+    }
+
+    @Override
+    public int updateStudentById(Student student) {
+        return studentMapper.updateStudentById(student);
     }
 
 }

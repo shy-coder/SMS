@@ -36,4 +36,24 @@ public class StudentController {
         return dataMap;
     }
 
+    @RequestMapping("/del")
+    @ResponseBody
+    public Object delStudentById(Integer id) {
+        System.out.println(id);
+        Map<String, Object> dataMap= new HashMap<>();
+        dataMap.put("code",0);
+        dataMap.put("data",studentrService.delStudentById(id));
+        return dataMap;
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public Object updateStudentById(Student student) {
+        System.out.println(student);
+        Map<String, Object> dataMap= new HashMap<>();
+        dataMap.put("code",0);
+        dataMap.put("data",studentrService.updateStudentById(student));
+        return dataMap;
+    }
+
 }

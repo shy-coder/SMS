@@ -37,8 +37,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-                <input type="radio" name="sex" value="男" title="男">
-                <input type="radio" name="sex" value="女" title="女" checked>
+                <input type="radio" name="gender" value="男" title="男">
+                <input type="radio" name="gender" value="女" title="女" checked>
             </div>
         </div>
         <div class="layui-form-item">
@@ -119,8 +119,10 @@
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <div th:style="'display:' + @{(${session.role}<2 ? 'inline-block' : 'none')} + ''">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </div>
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="/layui/layui.js"></script>
