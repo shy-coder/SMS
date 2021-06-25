@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentrService {
-
     @Autowired
     private StudentMapper studentMapper;
 

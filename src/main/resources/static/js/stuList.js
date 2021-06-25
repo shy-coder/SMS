@@ -1,4 +1,4 @@
-layui.use(['form','table','upload', 'element', 'layer'], function(){
+layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function () {
     const $ = layui.jquery
         , upload = layui.upload
         , element = layui.element
@@ -11,91 +11,104 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
 
     table.render({
         elem: '#test'
-        ,url:'/stu/list'
-        ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-        ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+        , url: '/stu/list'
+        , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+        , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             title: '提示'
-            ,layEvent: 'LAYTABLE_TIPS'
-            ,icon: 'layui-icon-tips'
+            , layEvent: 'LAYTABLE_TIPS'
+            , icon: 'layui-icon-tips'
         }]
-        ,title: '用户数据表'
-        ,cols:
+        , title: '用户数据表'
+        , cols:
             [
                 [
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field:'id', title:'ID', width:80}
-                    ,{field:'sno', title:'学号', width:80, edit: 'text'}
-                    ,{field:'username', title:'姓名', width:100, edit: 'text'}
-                    ,{field:'password', title:'密码', width:100, edit: 'text'}
-                    ,{field:'gender', title:'性别', width:60, edit: 'text'}
-                    ,{field:'email', title:'邮箱', width:130, edit: 'text', templet: function(res){
-                        return '<em>'+ res.email +'</em>'
-                    }}
-                    ,{field:'telephone', title:'电话', width:130, edit: 'text'}
-                    ,{field:'address', title:'城市', width:70}
-                    ,{field:'introduce', title: '介绍',width: 130}
-                    ,{field:'portrait_path', title:'头像',templet:'<div><img  src="{{ d.portrait_path }}"></div>',width: 120,}
-                    ,{field:'clazz_id', title:'班级', width:80}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                    , {field: 'id', title: 'ID', fixed: 'left', unresize: true, sort: true}
+                    , {field: 'sno', title: '学号', edit: 'text'}
+                    , {field: 'student_name', title: '姓名', edit: 'text'}
+                    , {field: 'gender', title: '性别',  edit: 'text'}
+                    , {
+                    field: 'email', title: '邮箱',  edit: 'text', templet: function (res) {
+                        return '<em>' + res.email + '</em>'
+                    }
+                }
+                    , {field: 'telephone', title: '电话',  edit: 'text'}
+                    , {field: 'address', title: '城市'}
+                    , {field: 'introduce', title: '介绍' }
+                    , {
+                    field: 'portrait_path',
+                    title: '头像',
+                    templet: '<div><img  src="{{ d.portrait_path }}" style="height: 20px;width: 20px"></div>',
+                }
+                    , {field: 'clazz_id', title: '班级'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
                 ]
             ]
-        ,page: true
+        , page: true
     });
 
     //头工具栏事件
-    table.on('toolbar(test)', function(obj){
+    table.on('toolbar(test)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
-        switch(obj.event){
+        switch (obj.event) {
             //新增学生
             case 'addStudent':
                 layer.open({
                     type: 1,
-                    title:"新增",
-                    area:['50%','50%'],
+                    title: "新增",
+                    area: ['50%', '50%'],
                     btn: ['确定', '取消'],
                     content: $("#window"),
-                    yes:function(index){
+                    yes: function (index) {
                         var stuData = form.val('example')
-                        $.getJSON('/stu/add',{
-                            sno: $('#sno').val(),
-                            username: $('#username').val(),
-                            password: $('#password').val(),
-                            gender: $('input[name="gender"]:checked').val(),
-                            email: $('#email').val(),
-                            telephone: $('#telephone').val(),
-                            address: $('#address').val(),
-                            introduce: $('#introduce').val(),
-                            portrait_path: file,
-                            clazz_id:stuData.clazz_id
-                        },function(data){
-                            //根据后台返回的参数，来进行判断
-                            layer.alert('增加成功',{icon:1,title:'提示'},function(i){
-                                //layer.close(i);
-                                layer.closeAll();//关闭弹出层
-                                $("#book")[0].reset()//重置form
-                            })
-                            table.reload('test',{//重载表格
-                                page:{
-                                    curr:1
+                        $.ajax(
+                            {
+                                type: "POST",
+                                data:{
+                                    sno: $('#sno').val(),
+                                    student_name: $('#student_name').val(),
+                                    password: $('#password').val(),
+                                    gender: $('input[name="gender"]:checked').val(),
+                                    email: $('#email').val(),
+                                    telephone: $('#telephone').val(),
+                                    address: $('#address').val(),
+                                    introduce: $('#introduce').val(),
+                                    portrait_path: file,
+                                    clazz_id:stuData.clazz_id
+                                },
+                                url:'/stu/add',
+                                success:function (data){
+                                    //根据后台返回的参数，来进行判断
+                                    layer.alert('增加成功',{icon:1,title:'提示'},function(i){
+                                        //layer.close(i);
+                                        layer.closeAll();//关闭弹出层
+                                        $("#book")[0].reset()//重置form
+                                    })
+                                    table.reload('test',{//重载表格
+                                        page:{
+                                            curr:1
+                                        }
+                                    })
                                 }
-                            })
-                        });
+                            }
+                        )
                     }
                 });
                 break;
             case 'getCheckLength':
                 var data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
+                layer.msg('选中了：' + data.length + ' 个');
                 break;
             case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选': '未全选');
+                layer.msg(checkStatus.isAll ? '全选' : '未全选');
                 break;
 
             //自定义头工具栏右侧图标 - 提示
             case 'LAYTABLE_TIPS':
                 layer.alert('这是工具栏右侧自定义的一个图标按钮');
                 break;
-        };
+        }
+        ;
     });
 
     //上传头像
@@ -116,7 +129,7 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                 return layer.msg('上传失败');
             }
             //上传成功的一些操作
-            console.log("!!!!!!!!"+res.data.src);
+            console.log("!!!!!!!!" + res.data.src);
             file = res.data.src;
             $('#demoText').html(''); //置空上传失败的状态
         }
@@ -138,10 +151,10 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
     });
 
     //监听行工具事件
-    table.on('tool(test)', function(obj){
+    table.on('tool(test)', function (obj) {
         const data = obj.data;
-        if(obj.event === 'del'){
-            layer.confirm('真的删除行么', function(index){
+        if (obj.event === 'del') {
+            layer.confirm('真的删除行么', function (index) {
                 $.ajax({
                     type: "POST",
                     data: {
@@ -151,25 +164,24 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                     success: function (result) {
                         if (result.data > 0) {
                             obj.del();
-                            table.reload('test',{
-                                page:{
-                                    curr:1
+                            table.reload('test', {
+                                page: {
+                                    curr: 1
                                 }
                             })
                             alert("删除成功");
-                        }else {
+                        } else {
                             alert("删除失败");
                         }
                     }
                 })
                 layer.close(index);
             });
-        } else if(obj.event === 'edit'){
+        } else if (obj.event === 'edit') {
             $('#demo1').attr('src', "" + data.portrait_path)
             form.val('example', {
                 'sno': data.sno,
-                'username': data.username,
-                'password': data.password,
+                'student_name': data.student_name,
                 'gender': data.gender,
                 'email': data.email,
                 'telephone': data.telephone,
@@ -179,7 +191,7 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
             })
             layer.open({
                 type: 1,
-                title:'修改',
+                title: '修改',
                 area: ['50%', '50%'],
                 btn: ['确认', '取消'],
                 content: $('#window'),
@@ -188,9 +200,9 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                     $.ajax({
                             type: "POST",
                             data: {
-                                'id':data.id,
+                                'id': data.id,
                                 'sno': stuData.sno,
-                                'username': stuData.username,
+                                'student_name': stuData.student_name,
                                 'password': stuData.password,
                                 'gender': stuData.gender,
                                 'email': stuData.email,
@@ -208,13 +220,13 @@ layui.use(['form','table','upload', 'element', 'layer'], function(){
                             success: function (result) {
                                 if (result.data > 0) {
                                     layer.closeAll();
-                                    table.reload('test',{
-                                        page:{
-                                            curr:1
+                                    table.reload('test', {
+                                        page: {
+                                            curr: 1
                                         }
                                     })
                                     alert("更新成功");
-                                }else {
+                                } else {
                                     alert("更新失败");
                                 }
                             }
