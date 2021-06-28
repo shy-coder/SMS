@@ -15,6 +15,6 @@ public class Admin {
     private String email;
     private String telephone;
     private String address;
-    private String portraitPath;//存储头像的项目路径
+    private String portrait_path;//存储头像的项目路径
 
 }

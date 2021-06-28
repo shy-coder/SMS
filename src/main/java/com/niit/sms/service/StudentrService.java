@@ -1,6 +1,7 @@
 package com.niit.sms.service;
 
 import com.niit.sms.bean.Student;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface StudentrService {
     int delStudentById(Integer id);
 
     int updateStudentById(Student student);
+
+    Student selectById(@Param("id") String id);
 
 }

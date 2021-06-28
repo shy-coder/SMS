@@ -26,6 +26,15 @@ public class StudentController {
         return dataMap;
     }
 
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public Object selectById(String id) {
+        Map<String, Object> dataMap= new HashMap<>();
+        dataMap.put("code",0);
+        dataMap.put("data",studentrService.selectById(id));
+        return dataMap;
+    }
+
     @RequestMapping("/add")
     @ResponseBody
     public Object addStudent(Student student) {
@@ -49,7 +58,7 @@ public class StudentController {
     @RequestMapping("/update")
     @ResponseBody
     public Object updateStudentById(Student student) {
-        System.out.println(student);
+        System.out.println("=====>修改："+student);
         Map<String, Object> dataMap= new HashMap<>();
         dataMap.put("code",0);
         dataMap.put("data",studentrService.updateStudentById(student));

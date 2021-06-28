@@ -47,7 +47,7 @@ public class TeacherController {
         return "/teacher/teaInfo";
     }
 
-    @RequestMapping("/upload")
+    @RequestMapping("/update")
     @ResponseBody
     public Object updateTeacher( Teacher teacher){
         Integer status = teacherService.updateTeacher(teacher);
@@ -76,6 +76,15 @@ public class TeacherController {
             result.put("msg","");
             return result;
         }
+    }
+
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public Object selectById(String id) {
+        Map<String, Object> dataMap= new HashMap<>();
+        dataMap.put("code",0);
+        dataMap.put("data",teacherService.selectById(id));
+        return dataMap;
     }
 
 }

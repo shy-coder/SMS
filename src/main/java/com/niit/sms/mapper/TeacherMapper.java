@@ -50,4 +50,11 @@ public interface TeacherMapper {
      */
     int deleteTeacher(Teacher teacher);
 
+    /**
+     * 根据id查询教师
+     * @param id
+     * @return
+     */
+    Teacher selectById(String id);
+
 }

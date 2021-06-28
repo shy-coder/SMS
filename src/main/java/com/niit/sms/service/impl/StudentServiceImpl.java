@@ -18,7 +18,6 @@ public class StudentServiceImpl implements StudentrService {
     public Student login(String tno, String password) {
         String mdPassword = MD5Util.MD5Lower(password);
         return studentMapper.login(tno, mdPassword);
-
     }
 
     @Override
@@ -40,7 +39,14 @@ public class StudentServiceImpl implements StudentrService {
 
     @Override
     public int updateStudentById(Student student) {
+        String lower = MD5Util.MD5Lower(student.getPassword());
+        student.setPassword(lower);
         return studentMapper.updateStudentById(student);
+    }
+
+    @Override
+    public Student selectById(String id) {
+        return studentMapper.selectById(id);
     }
 
 }

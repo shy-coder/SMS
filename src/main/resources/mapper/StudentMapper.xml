@@ -43,5 +43,10 @@
         where id=#{id}
     </update>
 
+    <!--根据id查询学生信息-->
+    <select id="selectById" resultType="student">
+        select * from tb_student where id=#{id}
+    </select>
+
 
 </mapper>

@@ -16,4 +16,6 @@ public interface StudentMapper {
     int delStudentById(Integer id);
 
     int updateStudentById(Student student);
+
+    Student selectById(@Param("id") String id);
 }

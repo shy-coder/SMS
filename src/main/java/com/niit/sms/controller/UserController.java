@@ -38,7 +38,6 @@ public class UserController {
             }
         }else if ("1".equals(role)) {
             Teacher teacher = teacherService.login(username, password);
-
             if (teacher==null) {
                 model.addAttribute("msg","用户名或密码错误");
                 return "login";
