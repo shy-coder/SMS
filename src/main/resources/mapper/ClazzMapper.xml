@@ -3,7 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.niit.sms.mapper.ClazzMapper">
-    <select id="findAll" resultType="com.niit.sms.bean.Clazz">
-        select * from tb_clazz
+    <select id="findAll" resultType="com.niit.sms.vo.clazzVo">
+        select clazz.*, tea.teacher_name as coordinator_name, acad.acad_name
+        from tb_clazz clazz
+                 left join tb_teacher tea on clazz.coordinator_id = tea.id
+                 left join tb_academy acad on clazz.acad_id = acad.id;
     </select>
+    <update id="updateClazz" parameterType="clazz">
+        update tb_clazz
+        <set>
+            <if test="clazz_name!=null and clazz_name!=''">course_id=#{clazz_name},</if>
+            <if test="number!=null and number!=''">number=#{number},</if>
+            <if test="coordinator_id!=null and coordinator_id!=''">coordinator_id=#{coordinator_id},</if>
+            <if test="acad_id!=null and acad_id!=''">acad_id=#{acad_id},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="insertClazz" parameterType="clazz">
+        insert into tb_clazz (clazz_name, number, coordinator_id, acad_id)
+        values (#{clazz_name}, #{number}, #{coordinator_id}, #{acad_id})
+    </insert>
+
+    <delete id="deleteClazz" parameterType="Integer">
+        delete  from  tb_clazz where id = #{id}
+    </delete>
 </mapper>

@@ -4,6 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.niit.sms.mapper.CourseMapper">
     <select id="findAll" resultType="com.niit.sms.bean.Course">
-        select * from tb_course;
+        select *
+        from tb_course;
     </select>
+    <insert id="insertCourse" parameterType="course">
+        insert into tb_course(cno, course_name)
+        values (#{cno}, #{course_name})
+    </insert>
+
+    <update id="updateCourse" parameterType="course">
+        update tb_course
+        <set>
+            <if test="cno!=null and cno!=''">cno=#{cno},</if>
+            <if test="course_name!=null and course_name!=''">course_name=#{course_name},</if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <delete id="deleteCourse">
+        delete
+        from tb_course
+        where id = #{id}
+    </delete>
 </mapper>

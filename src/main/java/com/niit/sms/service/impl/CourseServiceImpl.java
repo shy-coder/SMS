@@ -17,9 +17,25 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
     @Autowired
-    private  CourseMapper courseMapper;
+    private CourseMapper courseMapper;
+
     @Override
     public List<Course> findAll() {
         return courseMapper.findAll();
+    }
+
+    @Override
+    public Integer insertCourse(Course course) {
+        return courseMapper.insertCourse(course);
+    }
+
+    @Override
+    public Integer updateCourse(Course course) {
+        return courseMapper.updateCourse(course);
+    }
+
+    @Override
+    public Integer deleteCourse(Integer id) {
+        return courseMapper.deleteCourse(id);
     }
 }
