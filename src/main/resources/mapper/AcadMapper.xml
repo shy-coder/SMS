@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.niit.sms.mapper.AcadMapper">
+
+    <!-- 查询所有学院信息 -->
+    <select id="selectAll" resultType="com.niit.sms.vo.AcadVO">
+        SELECT tb_academy.id,tb_academy.acad_name,tb_teacher.teacher_name,tb_teacher.id AS teacher_id
+        FROM tb_academy
+        INNER JOIN tb_teacher
+        ON tb_academy.manager_id = tb_teacher.id
+    </select>
+
+    <!--根据id修改学院信息-->
+    <update id="updateAcadById" parameterType="com.niit.sms.bean.Acad">
+        update tb_academy
+        <set>
+            <if test="acad_name!=null and acad_name!=''">acad_name=#{acad_name},</if>
+            <if test="manager_id!=null and manager_id!=''">manager_id=#{manager_id},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--新增学院信息-->
+    <insert id="addAcad" parameterType="com.niit.sms.bean.Acad">
+        insert into tb_academy
+        (acad_name,manager_id)
+        values
+        (#{acad_name},#{manager_id})
+    </insert>
+
+    <!--根据id删除一条学院信息-->
+    <delete id="delAcadById">
+        delete from tb_academy where id=#{id}
+    </delete>
+
+
+</mapper>

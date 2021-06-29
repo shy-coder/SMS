@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
 
-    Admin login(@Param("username") String username, @Param("password") String password);
+    Admin login(@Param("admin_name") String admin_name, @Param("password") String password);
 
     Admin selectAdminById(String id);
 

@@ -53,6 +53,8 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
         switch (obj.event) {
             //新增学生
             case 'addStudent':
+                $('#book')[0].reset();
+                $('#demo1').attr('src',"")
                 layer.open({
                     type: 1,
                     title: "新增",

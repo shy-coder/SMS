@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Grade {
+public class Acad {
 
-    //年级信息
+    //学院信息
     private Integer id;
-    private String grade_name;
-    private String introduce;
-    //年级主任信息
-    private String manager;
+    private String acad_name;
+    //学院主任信息
+    private String manager_id;
 
 }

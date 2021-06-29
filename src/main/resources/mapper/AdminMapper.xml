@@ -4,7 +4,7 @@
 
     <!-- 验证登录信息是否正确 -->
     <select id="login" parameterType="Admin" resultType="com.niit.sms.bean.Admin">
-        select * from tb_admin where username=#{username} and password=#{password}
+        select * from tb_admin where admin_name=#{admin_name} and password=#{password}
     </select>
 
     <!--根据id查询管理员-->
@@ -16,7 +16,7 @@
     <update id="updateAdmin" parameterType="admin">
         UPDATE tb_admin
         <set>
-            <if test="username!=null and username!=''">username=#{username},</if>
+            <if test="admin_name!=null and admin_name!=''">admin_name=#{admin_name},</if>
             <if test="gender!=null and gender!=''">gender=#{gender},</if>
             <if test="password!=null and password!=''">password=#{password},</if>
             <if test="email!=null and email!=''">email=#{email},</if>
