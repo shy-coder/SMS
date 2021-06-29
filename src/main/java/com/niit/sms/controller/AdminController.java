@@ -1,7 +1,6 @@
 package com.niit.sms.controller;
 
 import com.niit.sms.bean.Admin;
-import com.niit.sms.bean.Student;
 import com.niit.sms.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

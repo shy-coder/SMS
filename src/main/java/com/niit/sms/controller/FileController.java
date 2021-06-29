@@ -43,7 +43,7 @@ public class FileController {
                 String uuid = UUID.randomUUID()+"";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateStr = simpleDateFormat.format(date);
-                String filepath = "C:\\Program\\workspace\\Java\\sms\\src\\main\\resources\\static\\images\\"+dateStr+"\\"+uuid+"." + prefix;
+                String filepath = "D:\\SMS\\src\\main\\resources\\static\\images\\"+dateStr+"\\"+uuid+"." + prefix;
 
                 File files=new File(filepath);
                 //打印查看上传路径
@@ -57,7 +57,7 @@ public class FileController {
                 map.put("code",0);
                 map.put("msg","");
                 map.put("data",map2);
-                map2.put("src", "/images/" + dateStr+"/"+uuid+"." + prefix);
+                map2.put("src", "images/" + dateStr+"/"+uuid+"." + prefix);
                 return map;
             }
 

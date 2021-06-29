@@ -21,6 +21,14 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+
+    @RequestMapping("/findAll")
+    @ResponseBody
+    public Object findAll(){
+        List<Teacher> teacherList = teacherService.findAll();
+        return teacherList;
+    }
+
     @RequestMapping("/teacherListData")
     @ResponseBody
     public Object teacherListData(){
@@ -50,6 +58,9 @@ public class TeacherController {
     @RequestMapping("/update")
     @ResponseBody
     public Object updateTeacher( Teacher teacher){
+        if(!teacher.getPassword().isEmpty()){
+            teacher.setPassword(MD5Util.MD5Lower(teacher.getPassword()));
+        }
         Integer status = teacherService.updateTeacher(teacher);
         Map<String, Object> result = new HashMap<>();
         result.put("status",status);

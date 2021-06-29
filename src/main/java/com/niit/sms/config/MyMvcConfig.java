@@ -16,7 +16,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /*System.out.println("配置文件已经生效");*/
-        registry.addResourceHandler("/images/**").addResourceLocations("file:C:\\Program\\workspace\\Java\\sms\\src\\main\\resources\\static\\images\\");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:D:\\SMS\\src\\main\\resources\\static\\images\\");
     }
 
 
@@ -28,11 +28,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/main.html").setViewName("main");
         registry.addViewController("/stuList.html").setViewName("student/stuList");
         registry.addViewController("/teaList.html").setViewName("teacher/teaList");
-        registry.addViewController("/userList.html").setViewName("userList");
-        registry.addViewController("/acadList.html").setViewName("acad/acadList");
-        registry.addViewController("/clazzList.html").setViewName("clazz/clazzList");
         registry.addViewController("/stuInfo.html").setViewName("student/stuInfo");
         registry.addViewController("/teaInfo.html").setViewName("teacher/teaInfo");
         registry.addViewController("/adminInfo.html").setViewName("adminInfo");
+        registry.addViewController("/acadList.html").setViewName("acad/acadList");
+        registry.addViewController("/clazzList.html").setViewName("clazz/clazzList");
+        registry.addViewController("/scheList.html").setViewName("scheList");
     }
 }

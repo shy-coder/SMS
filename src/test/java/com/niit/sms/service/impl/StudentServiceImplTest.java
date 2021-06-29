@@ -1,7 +1,7 @@
 package com.niit.sms.service.impl;
 
 import com.niit.sms.bean.Student;
-import com.niit.sms.service.StudentrService;
+import com.niit.sms.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import java.util.List;
 class StudentServiceImplTest {
 
     @Autowired
-    private StudentrService studentService;
+    private StudentService studentService;
 
     @Test
     void selectAll() {

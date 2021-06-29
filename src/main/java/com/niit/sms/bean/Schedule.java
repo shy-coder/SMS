@@ -1,26 +1,23 @@
-package com.niit.sms.vo;
+package com.niit.sms.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName ScheduleVo
+ * @ClassName Schedule
  * @Description TODO
  * @Author DARKW
- * @Date 2021/6/24
+ * @Date 2021/6/25
  **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleVo {
+public class Schedule {
     private Integer id;
     private Integer course_id;
-    private String course_name;
     private Integer teacher_id;
-    private String teacher_name;
     private Integer clazz_id;
-    private String clazz_name;
     private String room;
     private String course_time;
     private String course_week;

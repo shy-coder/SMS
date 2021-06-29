@@ -19,6 +19,7 @@ public class AdminServiceImpl implements AdminService {
         return adminMapper.login(username, mdPassword);
     }
 
+
     @Override
     public Admin selectAdminById(String id) {
         return adminMapper.selectAdminById(id);

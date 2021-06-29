@@ -153,7 +153,7 @@ layui.use(['table', 'jquery', 'form', 'upload'], function () {
                                 'address': teaData.address,
                                 'portrait_path': $('#image').attr('src'),
                             },
-                            url: '/teacher/upload',
+                            url: '/teacher/update',
                             error: function (XMLHttpRequest) {
                                 alert("更新失败了!");
                                 alert(XMLHttpRequest.status);

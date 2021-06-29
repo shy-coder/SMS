@@ -1,7 +1,6 @@
 package com.niit.sms.controller;
 
 import com.niit.sms.bean.Acad;
-import com.niit.sms.bean.Teacher;
 import com.niit.sms.service.AcadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

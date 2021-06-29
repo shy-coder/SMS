@@ -53,7 +53,7 @@ public interface TeacherService {
     /**
      * 根据id查询教师
      * @param id
-     * @return
+     * @return Teacher
      */
     Teacher selectById(String id);
 

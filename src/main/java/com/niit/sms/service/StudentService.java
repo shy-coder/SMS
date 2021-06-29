@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface StudentrService {
+public interface StudentService {
     Student login(String sno, String password);
 
     List<Student> selectAll();

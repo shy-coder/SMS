@@ -6,6 +6,7 @@ public interface AdminService {
 
     Admin login(String username, String password);
 
+
     Admin selectAdminById(String id);
 
     int updateAdmin(Admin admin);

@@ -12,15 +12,17 @@
 
 <form class="layui-form" id="info" method="post" lay-filter="example">
     <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
+        <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
-            <input type="text" id="username" name="username" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+            <input type="text" id="username" name="username"
+                   autocomplete="off" placeholder="请输入姓名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" id="password" name="password" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？" placeholder="请输入密码" class="layui-input">
+            <input type="text" id="password" name="password"
+                   placeholder="请输入密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -39,13 +41,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label">电话</label>
         <div class="layui-input-block">
-            <input type="text" id="telephone" name="telephone" lay-verify="phone" placeholder="请输入电话" class="layui-input">
+            <input type="text" id="telephone" name="telephone" lay-verify="phone" placeholder="请输入电话"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">地址</label>
         <div class="layui-input-block">
-            <input type="text" id="address" name="address" lay-verify="title" autocomplete="off" placeholder="请输入地址" class="layui-input">
+            <input type="text" id="address" name="address" lay-verify="title" autocomplete="off" placeholder="请输入地址"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -54,7 +58,7 @@
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test1">上传图片</button>
                 <div class="layui-upload-list">
-                    <img class="layui-upload-img" id="demo1">
+                    <img class="layui-upload-img" id="demo1" style="height: 150px;width: 150px">
                     <p id="demoText"></p>
                 </div>
                 <div style="width: 95px;">
@@ -73,8 +77,6 @@
         </div>
     </div>
 </form>
-
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="../layui/layui.js"></script>
 <script th:inline="javascript">
 
@@ -84,12 +86,11 @@
             , element = layui.element
             , layer = layui.layer
             , form = layui.form
-            , table = layui.table;
         let file;
 
         //填充表单数据
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '/admin/selectById',
             data: {
                 'id': [[${session.loginUser.id}]]
@@ -102,8 +103,8 @@
                 if (result.code == 0) {
                     console.log("初始化请求成功");
                     console.log(result.data)
-                    $('#demo1').attr('src',result.data.portrait_path);
-                    form.val('example',{
+                    $('#demo1').attr('src', result.data.portrait_path);
+                    form.val('example', {
                         'username': result.data.admin_name,
                         'gender': result.data.gender,
                         'email': result.data.email,
@@ -117,18 +118,18 @@
         })
 
         //监听提交
-        form.on('submit(demo1)', function(data){
-            const teaData = form.val('example');
+        form.on('submit(demo1)', function (data) {
+            const adminData = form.val('example');
             $.ajax({
                     type: "POST",
                     data: {
                         'id': [[${session.loginUser.id}]],
-                        'admin_name': teaData.username,
-                        'password': teaData.password,
-                        'gender': teaData.gender,
-                        'email': teaData.email,
-                        'telephone': teaData.telephone,
-                        'address': teaData.address,
+                        'admin_name': adminData.username,
+                        'password': adminData.password,
+                        'gender': adminData.gender,
+                        'email': adminData.email,
+                        'telephone': adminData.telephone,
+                        'address': adminData.address,
                         'portrait_path': file
                     },
                     url: '/admin/update',
