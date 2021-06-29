@@ -21,6 +21,14 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+
+    @RequestMapping("/findAll")
+    @ResponseBody
+    public Object findAll(){
+        List<Teacher> teacherList = teacherService.findAll();
+        return teacherList;
+    }
+
     @RequestMapping("/teacherListData")
     @ResponseBody
     public Object teacherListData(){
@@ -47,9 +55,12 @@ public class TeacherController {
         return "/teacher/teaInfo";
     }
 
-    @RequestMapping("/upload")
+    @RequestMapping("/update")
     @ResponseBody
     public Object updateTeacher( Teacher teacher){
+        if(!teacher.getPassword().isEmpty()){
+            teacher.setPassword(MD5Util.MD5Lower(teacher.getPassword()));
+        }
         Integer status = teacherService.updateTeacher(teacher);
         Map<String, Object> result = new HashMap<>();
         result.put("status",status);
@@ -76,6 +87,15 @@ public class TeacherController {
             result.put("msg","");
             return result;
         }
+    }
+
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public Object selectById(String id) {
+        Map<String, Object> dataMap= new HashMap<>();
+        dataMap.put("code",0);
+        dataMap.put("data",teacherService.selectById(id));
+        return dataMap;
     }
 
 }

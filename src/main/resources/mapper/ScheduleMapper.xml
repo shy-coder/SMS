@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.niit.sms.mapper.ScheduleMapper">
     <select id="findAll" resultType="com.niit.sms.vo.ScheduleVo">
-        SELECT sche.id, course.course_name, tea.teacher_name, clazz.clazz_name, room, course_time, course_week
+        SELECT sche.*, course.course_name, tea.teacher_name, clazz.clazz_name, room, course_time, course_week
         from tb_schedule sche
                  LEFT JOIN tb_course course ON sche.course_id = course.id
                  LEFT JOIN tb_teacher tea ON sche.teacher_id = tea.id
@@ -12,7 +12,7 @@
     </select>
 
     <select id="findByTeaId" resultType="com.niit.sms.vo.ScheduleVo" parameterType="Integer">
-        SELECT sche.id, course.course_name, tea.teacher_name, clazz.clazz_name, room, course_time, course_week
+        SELECT sche.*, course.course_name, tea.teacher_name, clazz.clazz_name, room, course_time, course_week
         from tb_schedule sche
                  LEFT JOIN tb_course course ON sche.course_id = course.id
                  LEFT JOIN tb_teacher tea ON sche.teacher_id = tea.id
@@ -21,12 +21,36 @@
     </select>
 
     <select id="findByClazzId" resultType="com.niit.sms.vo.ScheduleVo" parameterType="Integer">
-        SELECT sche.id, course.course_name, tea.teacher_name, clazz.clazz_name, room, course_time, course_week
+        SELECT sche.*, course.course_name, tea.teacher_name, clazz.clazz_name, room, course_time, course_week
         from tb_schedule sche
                  LEFT JOIN tb_course course ON sche.course_id = course.id
                  LEFT JOIN tb_teacher tea ON sche.teacher_id = tea.id
                  LEFT JOIN tb_clazz clazz ON sche.clazz_id = clazz.id
         WHERE sche.clazz_id = #{clazzId}
     </select>
+
+    <insert id="insertSchedule"  parameterType="schedule">
+        insert into tb_schedule
+        values (#{id}, #{course_id}, #{teacher_id}, #{clazz_id}, #{room}, #{course_time}, #{course_week})
+    </insert>
+
+    <delete id="deleteSchedule" >
+        delete
+        from tb_schedule
+        where id = #{scheId}
+    </delete>
+
+    <update id="updateSchedule">
+            update tb_schedule
+        <set>
+            <if test="course_id!=null and course_id!=''">course_id=#{course_id},</if>
+            <if test="teacher_id!=null and teacher_id!=''">teacher_id=#{teacher_id},</if>
+            <if test="clazz_id!=null and clazz_id!=''">clazz_id=#{clazz_id},</if>
+            <if test="room!=null and room!=''">room=#{room},</if>
+            <if test="course_time!=null and course_time!=''">course_time=#{course_time},</if>
+            <if test="course_week!=null and course_week!=''">course_week=#{course_week},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>

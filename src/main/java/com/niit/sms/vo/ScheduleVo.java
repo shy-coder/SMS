@@ -15,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ScheduleVo {
     private Integer id;
+    private Integer course_id;
     private String course_name;
+    private Integer teacher_id;
     private String teacher_name;
+    private Integer clazz_id;
     private String clazz_name;
     private String room;
     private String course_time;

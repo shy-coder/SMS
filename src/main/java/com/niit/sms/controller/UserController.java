@@ -4,7 +4,7 @@ import com.niit.sms.bean.Admin;
 import com.niit.sms.bean.Student;
 import com.niit.sms.bean.Teacher;
 import com.niit.sms.service.AdminService;
-import com.niit.sms.service.StudentrService;
+import com.niit.sms.service.StudentService;
 import com.niit.sms.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private TeacherService teacherService;
     @Autowired
-    private StudentrService studentrService;
+    private StudentService studentrService;
 
     @RequestMapping("/login")
     public String login(String username, String password, String role, Model model, HttpSession session) {
@@ -44,6 +44,7 @@ public class UserController {
                 return "login";
             }else {
                 session.setAttribute("loginUser",teacher);
+                session.setAttribute("clazz_id",null);
                 session.setAttribute("role",1);
                 return "redirect:/main.html";
             }
@@ -54,6 +55,7 @@ public class UserController {
                 return "login";
             }else {
                 session.setAttribute("loginUser",student);
+                session.setAttribute("clazz_id",student.getClazz_id());
                 session.setAttribute("role",2);
                 return "redirect:/main.html";
             }

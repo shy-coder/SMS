@@ -62,4 +62,9 @@
         DELETE FROM tb_teacher WHERE id = #{id}
     </delete>
 
+    <!--根据id查询教师-->
+    <select id="selectById" resultType="teacher">
+        select * from tb_teacher where id=#{id}
+    </select>
+
 </mapper>

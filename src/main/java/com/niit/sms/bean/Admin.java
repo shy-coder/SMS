@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Admin {
     private Integer id;
-    private String username;
+    private String admin_name;
     private String password;
     private char gender;
     private String email;
     private String telephone;
     private String address;
-    private String portraitPath;//存储头像的项目路径
+    private String portrait_path;//存储头像的项目路径
 
 }

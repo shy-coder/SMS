@@ -1,5 +1,6 @@
 package com.niit.sms.service;
 
+import com.niit.sms.bean.Schedule;
 import com.niit.sms.vo.ScheduleVo;
 
 import java.util.List;
@@ -29,17 +30,17 @@ public interface ScheduleService {
 
     /**
      * 增加排课信息
-     * @param scheduleVo
+     * @param schedule
      * @return Integer
      */
-    Integer insertSchedule(ScheduleVo scheduleVo);
+    Integer insertSchedule(Schedule schedule);
 
     /**
      * 修改排课信息
-     * @param scheduleVo
+     * @param schedule
      * @return Integer
      */
-    Integer updateSchedule(ScheduleVo scheduleVo);
+    Integer updateSchedule(Schedule schedule);
 
 
     /**

@@ -7,4 +7,8 @@ public interface AdminMapper {
 
     Admin login(@Param("username") String username, @Param("password") String password);
 
+    Admin selectAdminById(String id);
+
+    int updateAdmin(Admin admin);
+
 }

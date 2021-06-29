@@ -2,7 +2,6 @@ package com.niit.sms.mapper;
 
 import com.niit.sms.bean.Student;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 public interface StudentMapper {
@@ -16,4 +15,6 @@ public interface StudentMapper {
     int delStudentById(Integer id);
 
     int updateStudentById(Student student);
+
+    Student selectById(@Param("id") String id);
 }

@@ -53,4 +53,9 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.deleteTeacher(teacher);
     }
 
+    @Override
+    public Teacher selectById(String id) {
+        return teacherMapper.selectById(id);
+    }
+
 }
