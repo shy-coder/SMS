@@ -42,8 +42,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int updateStudentById(Student student) {
-        String lower = MD5Util.MD5Lower(student.getPassword());
-        student.setPassword(lower);
         return studentMapper.updateStudentById(student);
     }
 

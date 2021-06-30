@@ -40,8 +40,6 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int updateTeacher(Teacher teacher) {
-        String lower = MD5Util.MD5Lower(teacher.getPassword());
-        teacher.setPassword(lower);
         return teacherMapper.updateTeacher(teacher);
     }
 

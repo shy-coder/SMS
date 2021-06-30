@@ -209,7 +209,6 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
                 async:false,
                 success:function (resData) {
                     $.each(resData, function (index,value) {
-                        console.log(resData);
                         clazz.append(new Option(value.clazz_name,value.id));
                     })
                 }
