@@ -4,6 +4,7 @@ import com.niit.sms.bean.Student;
 import com.niit.sms.mapper.StudentMapper;
 import com.niit.sms.service.StudentService;
 import com.niit.sms.utils.MD5Util;
+import com.niit.sms.vo.StudentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,7 +21,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> selectAll() {
+    public List<StudentVO> selectAllByTeacher(Integer id) {
+        return studentMapper.selectAllByTeacher(id);
+    }
+
+    @Override
+    public List<StudentVO> selectAll() {
         return studentMapper.selectAll();
     }
 

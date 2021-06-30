@@ -22,12 +22,22 @@ public class StudentController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object selectAll() {
-        Map<String, Object> dataMap= new HashMap<>();
-        dataMap.put("code",0);
-        dataMap.put("data",studentrService.selectAll());
-        return dataMap;
+    public Object selectAll(Integer role, Integer id) {
+        if (role == 0) {
+            Map<String, Object> dataMap= new HashMap<>();
+            dataMap.put("code",0);
+            dataMap.put("data",studentrService.selectAll());
+            return dataMap;
+        } else{
+            System.out.println("老师id：：：：："+id);
+            Map<String, Object> dataMap= new HashMap<>();
+            dataMap.put("code",0);
+            dataMap.put("data",studentrService.selectAllByTeacher(id));
+            return dataMap;
+        }
     }
+
+
 
     @RequestMapping("/selectById")
     @ResponseBody
@@ -65,16 +75,6 @@ public class StudentController {
         Map<String, Object> dataMap= new HashMap<>();
         dataMap.put("code",0);
         dataMap.put("data",studentrService.updateStudentById(student));
-        return dataMap;
-    }
-
-
-    @RequestMapping("/selectById")
-    @ResponseBody
-    public Object selectById(String id) {
-        Map<String, Object> dataMap= new HashMap<>();
-        dataMap.put("code",0);
-        dataMap.put("data",studentrService.selectById(id));
         return dataMap;
     }
 

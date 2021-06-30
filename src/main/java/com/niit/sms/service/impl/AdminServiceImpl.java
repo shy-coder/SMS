@@ -14,9 +14,9 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public Admin login(String username, String password) {
+    public Admin login(String admin_name, String password) {
         String mdPassword = MD5Util.MD5Lower(password);
-        return adminMapper.login(username, mdPassword);
+        return adminMapper.login(admin_name, mdPassword);
     }
 
 

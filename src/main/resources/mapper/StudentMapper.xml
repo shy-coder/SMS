@@ -7,9 +7,26 @@
         select * from tb_student where sno=#{sno} and password=#{password}
     </select>
 
-    <!-- 查询所有学生 -->
-    <select id="selectAll" resultType="student">
-        select * from tb_student
+    <!-- 根据教师id查询所有学生 -->
+    <select id="selectAllByTeacher" resultType="com.niit.sms.vo.StudentVO">
+        SELECT s.id,s.sno,s.student_name,s.`password`,s.gender,s.email,s.telephone,s.address,s.introduce,s.portrait_path,s.clazz_id,c.clazz_name
+        FROM tb_student AS s
+        INNER JOIN tb_clazz AS c
+        ON s.clazz_id = c.id
+        WHERE clazz_id = (
+            SELECT tb_clazz.id AS clazz_id FROM tb_teacher
+            INNER JOIN tb_clazz
+            ON tb_teacher.id = tb_clazz.coordinator_id
+            WHERE tb_teacher.id = #{id}
+        )
+    </select>
+
+    <!--查询所有学生-->
+    <select id="selectAll" resultType="com.niit.sms.vo.StudentVO">
+        SELECT s.id,s.sno,s.student_name,s.`password`,s.gender,s.email,s.telephone,s.address,s.introduce,s.portrait_path,s.clazz_id,c.clazz_name
+        FROM tb_student AS s
+        INNER JOIN tb_clazz AS c
+        ON s.clazz_id = c.id
     </select>
     
     <!--新增一名学生-->

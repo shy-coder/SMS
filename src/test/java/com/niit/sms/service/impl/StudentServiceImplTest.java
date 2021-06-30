@@ -14,9 +14,5 @@ class StudentServiceImplTest {
     @Autowired
     private StudentService studentService;
 
-    @Test
-    void selectAll() {
-        List<Student> students = studentService.selectAll();
-        System.out.println(students);
-    }
+
 }

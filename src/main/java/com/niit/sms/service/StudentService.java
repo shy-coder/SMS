@@ -1,6 +1,7 @@
 package com.niit.sms.service;
 
 import com.niit.sms.bean.Student;
+import com.niit.sms.vo.StudentVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -8,7 +9,9 @@ import java.util.List;
 public interface StudentService {
     Student login(String sno, String password);
 
-    List<Student> selectAll();
+    List<StudentVO> selectAllByTeacher(Integer id);
+
+    List<StudentVO> selectAll();
 
     int addStudent(Student student);
 

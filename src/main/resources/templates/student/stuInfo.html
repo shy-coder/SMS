@@ -82,11 +82,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">班级</label>
         <div class="layui-input-block">
-            <select name="clazz_id" lay-verify="">
-                <option value="" >请选择一个城市</option>
-                <option value="01">北京</option>
-                <option value="02">上海</option>
-                <option value="05">杭州</option>
+            <select name="clazz_id" id="clazz_id" lay-verify="clazz_id">
+                <option value="" ></option>
             </select>
         </div>
     </div>
@@ -109,6 +106,7 @@
             , form = layui.form
             , table = layui.table;
         let file;
+        var clazz = $('#clazz_id');
 
         //填充表单数据
         $.ajax({
@@ -125,6 +123,17 @@
                 if (result.code == 0) {
                     console.log("初始化请求成功");
                     console.log(result.data)
+                    $.ajax({
+                        type:'POST',
+                        url:'/clazz/findAll',
+                        async:false,
+                        success:function (resData) {
+                            $.each(resData, function (index,value) {
+                                console.log(resData);
+                                clazz.append(new Option(value.clazz_name,value.id));
+                            })
+                        }
+                    })
                     $('#demo1').attr('src',result.data.portrait_path);
                     form.val('example',{
                         'sno': result.data.sno,
@@ -133,9 +142,10 @@
                         'email': result.data.email,
                         'telephone': result.data.telephone,
                         'address': result.data.address,
-                        'introduce': result.data.introduce,
-                        'clazz_id':result.data.clazz_id
+                        'introduce': result.data.introduce
                     })
+                    clazz.val(result.data.clazz_id);
+                    layui.form.render('select');
                 } else {
                     console.log("初始化请求失败");
                 }

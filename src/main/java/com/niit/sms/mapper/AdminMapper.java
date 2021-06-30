@@ -12,8 +12,5 @@ public interface AdminMapper {
 
     int updateAdmin(Admin admin);
 
-    Admin selectAdminById(String id);
-
-    int updateAdmin(Admin admin);
 
 }

@@ -7,11 +7,20 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
     const table = layui.table;
     const url = $("#ctx").val();
     var file;
+    var clazz = $('#clazz_id');
     console.log(url.toString());
+    console.log("老师id"+userId);
+    var url_stu;
+    if (role===0) {
+        url_stu = '/stu/list?role='+role;
+    }else {
+        url_stu = '/stu/list?role='+role+'&id='+userId;
+    }
+
 
     table.render({
         elem: '#test'
-        , url: '/stu/list'
+        , url: url_stu
         , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
         , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             title: '提示'
@@ -40,7 +49,8 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
                     title: '头像',
                     templet: '<div><img  src="{{ d.portrait_path }}" style="height: 20px;width: 20px"></div>',
                 }
-                    , {field: 'clazz_id', title: '班级'}
+                    , {field: 'clazz_id', title: '班级id'}
+                    , {field: 'clazz_name', title: '班级名称'}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
                 ]
             ]
@@ -55,6 +65,18 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
             case 'addStudent':
                 $('#book')[0].reset();
                 $('#demo1').attr('src',"")
+                $.ajax({
+                    type:'POST',
+                    url:'/clazz/findAll',
+                    async:false,
+                    success:function (resData) {
+                        $.each(resData, function (index,value) {
+                            console.log(resData);
+                            clazz.append(new Option(value.clazz_name,value.id));
+                        })
+                    }
+                })
+                layui.form.render('select');
                 layer.open({
                     type: 1,
                     title: "新增",
@@ -180,6 +202,18 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
                 layer.close(index);
             });
         } else if (obj.event === 'edit') {
+            //填充数据
+            $.ajax({
+                type:'POST',
+                url:'/clazz/findAll',
+                async:false,
+                success:function (resData) {
+                    $.each(resData, function (index,value) {
+                        console.log(resData);
+                        clazz.append(new Option(value.clazz_name,value.id));
+                    })
+                }
+            })
             $('#demo1').attr('src', "" + data.portrait_path)
             form.val('example', {
                 'sno': data.sno,
@@ -188,9 +222,11 @@ layui.use(['form', 'table', 'upload', 'element', 'layer', 'jquery'], function ()
                 'email': data.email,
                 'telephone': data.telephone,
                 'address': data.address,
-                'introduce': data.introduce,
-                'clazz_id': data.clazz_id
+                'introduce': data.introduce
             })
+            clazz.val(data.clazz_id);
+            layui.form.render('select');
+            //表单提交
             layer.open({
                 type: 1,
                 title: '修改',
