@@ -2,6 +2,7 @@ package com.niit.sms.controller;
 
 import com.niit.sms.bean.Admin;
 import com.niit.sms.service.AdminService;
+import com.niit.sms.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,9 @@ public class AdminController {
     @RequestMapping("/update")
     @ResponseBody
     public Object updateStudentById(Admin admin) {
-        System.out.println("=====>修改："+admin);
+        if(!admin.getPassword().isEmpty()){
+            admin.setPassword(MD5Util.MD5Lower(admin.getPassword()));
+        }
         Map<String, Object> dataMap= new HashMap<>();
         dataMap.put("code",0);
         dataMap.put("data",adminService.updateAdmin(admin));

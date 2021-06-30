@@ -1,5 +1,6 @@
 package com.niit.sms.controller;
 
+import com.niit.sms.bean.Clazz;
 import com.niit.sms.bean.Course;
 import com.niit.sms.bean.Schedule;
 import com.niit.sms.service.CourseService;
@@ -79,6 +80,42 @@ public class CourseController {
         status = scheduleService.deleteSchedule(cid);
         return status;
     }
+
+    @RequestMapping("/insertCourse")
+    @ResponseBody
+    public Integer insertCourse(Course course){
+        Integer status;
+        status = courseService.insertCourse(course);
+        return status;
+    }
+
+    @RequestMapping("/courseListData")
+    @ResponseBody
+    public Object courseListData(){
+        Map<String,Object> resultMap = new HashMap<>();
+        List<Course> courList = courseService.findAll();
+        resultMap.put("code",0);
+        resultMap.put("data",courList);
+        return resultMap;
+    }
+
+    @RequestMapping("/updateCourse")
+    @ResponseBody
+    public Integer deleteCourse(Course course){
+        Integer status ;
+        status = courseService.updateCourse(course);
+        return status;
+    }
+
+    @RequestMapping("/deleteCourse")
+    @ResponseBody
+    public Integer deleteCourse(@RequestParam("id") Integer id){
+        Integer status ;
+        status = courseService.deleteCourse(id);
+        return  status;
+    }
+
+
 }
 
 

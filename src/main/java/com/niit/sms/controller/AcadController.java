@@ -1,13 +1,17 @@
 package com.niit.sms.controller;
 
 import com.niit.sms.bean.Acad;
+import com.niit.sms.bean.Clazz;
 import com.niit.sms.service.AcadService;
+import com.niit.sms.service.ClazzService;
+import com.niit.sms.vo.AcadVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -16,6 +20,14 @@ public class AcadController {
 
     @Autowired
     private AcadService acadService;
+
+
+    @RequestMapping("/findAll")
+    @ResponseBody
+    public Object findAll(){
+        List<AcadVO> acadList = acadService.selectAll();
+        return acadList;
+    }
 
     @RequestMapping("/list")
     @ResponseBody

@@ -37,6 +37,7 @@
                 <li th:style="'display:' + @{(${session.role}<1 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="/teaList.html" mytitle="教师管理"><a>教师管理</a></li>
                 <li th:style="'display:' + @{(${session.role}<1 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="clazzList.html" mytitle="班级管理"><a>班级管理</a></li>
                 <li th:style="'display:' + @{(${session.role}<1 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="acadList.html" mytitle="学院管理"><a>学院管理</a></li>
+                <li th:style="'display:' + @{(${session.role}==0 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="courseList.html" mytitle="课程管理"><a>课程管理</a></li>
                 <li th:style="'display:' + @{(${session.role}<=2 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="scheList.html" mytitle="课表管理"><a>课表管理</a></li>
                 <li th:style="'display:' + @{(${session.role}==2 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="stuInfo.html" mytitle="个人信息"><a>个人信息</a></li>
                 <li th:style="'display:' + @{(${session.role}==1 ? 'inline-block' : 'none')} + ''" class="layui-nav-item leftdaohang" data-url="teaInfo.html" mytitle="个人信息"><a>个人信息</a></li>

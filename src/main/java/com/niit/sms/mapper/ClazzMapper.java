@@ -10,4 +10,25 @@ public interface ClazzMapper {
      * @return List<Clazz>
      */
     List<Clazz> findAll();
+
+    /**
+     * 修改学院信息
+     * @param clazz
+     * @return Integer
+     */
+    Integer updateClazz(Clazz clazz);
+
+    /**
+     * 添加新学院
+     * @param clazz
+     * @return Integer
+     */
+    Integer insertClazz(Clazz clazz);
+
+    /**
+     * 删除班级
+     * @param id
+     * @return Integer
+     */
+    Integer deleteClazz(Integer id);
 }

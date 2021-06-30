@@ -22,4 +22,19 @@ public class ClazzServiceImpl implements ClazzService {
     public List<Clazz> findAll() {
         return cLazzMapper.findAll();
     }
+
+    @Override
+    public Integer updateClazz(Clazz clazz) {
+        return cLazzMapper.updateClazz(clazz);
+    }
+
+    @Override
+    public Integer insertClazz(Clazz clazz) {
+        return cLazzMapper.insertClazz(clazz);
+    }
+
+    @Override
+    public Integer deleteClazz(Integer id) {
+        return cLazzMapper.deleteClazz(id);
+    }
 }

@@ -27,8 +27,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int updateAdmin(Admin admin) {
-        String lower = MD5Util.MD5Lower(admin.getPassword());
-        admin.setPassword(lower);
         return adminMapper.updateAdmin(admin);
     }
 }
